@@ -1,12 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactController;
 
 Route::get('/', function () {
     return view('home', [
         "title" => "Home",
-        "nama" => "Dwianak Elisa Putridarhi",
-        "email" => "putidarhi@gmail.com"
     ]);
 });
 
@@ -24,3 +23,4 @@ Route::get('/gallery', function () {
         "title" => "Gallery"
     ]);
 });
+Route::resource('/contacts', ContactController::class);
