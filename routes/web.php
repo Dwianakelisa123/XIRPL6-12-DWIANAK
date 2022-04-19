@@ -15,7 +15,7 @@ use App\Http\Controllers\ContactController;
 */
 
 Route::get('/', function () {
-    return view('home', [
+    return view('index', [
         "title" => "Home"
     ]);
 });
@@ -34,4 +34,15 @@ Route::get('/gallery', function () {
         "title" => "Gallery"
     ]);
 });
-Route::resource('/contacts', ContactController::class);
+route::get('contact/create', [ContactController::class, 'create'])->name('contact.create');
+route::post('contact/store', [ContactController::class, 'store'])->name('contact.store');
+
+
+Auth::routes();
+Route::group(['middleware' => ['auth']], function () {
+    route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    route::get('contact/index', [ContactController::class, 'index'])->name('contact.index');
+    route::get('contact/{id}/edit', [ContactController::class, 'edit'])->name('contact.edit');
+    route::post('contact/{id}/update', [ContactController::class, 'update'])->name('contact.update');
+    route::get('contact/{id}/destroy', [ContactController::class, 'destroy'])->name('contact.destroy');
+});
